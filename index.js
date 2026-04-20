@@ -626,7 +626,7 @@ app.delete("/api/tiket/:id", (req, res) => {
 
 //Validasi Path
 app.use((req, res) => {
-    sendRes(res, 404, `Endpoint ${req.originalUrl} tidak ditemukan. Method: ${req.method}`);
+    sendRes(res, 404, `Endpoint ${req.originalUrl} tidak ditemukan.`);
 });
 
 app.use((err, req, res, next) => {
