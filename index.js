@@ -1,6 +1,7 @@
 import express from "express";
 import mysql2 from "mysql2";
 
+
 let app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -33,11 +34,11 @@ app.get("/", (req, res) => {
         message: "Selamat Datang di Sistem Kereta Api Mahasigma",
         info: "Sistem ini mengelola data user, kereta, stasiun, dan transaksi tiket.",
         endpoints: {
-            users:     "/api/users",
-            kereta:    "/api/kereta",
-            stasiun:   "/api/stasiun",
-            transaksi: "/api/transaksi",
-            tiket:     "/api/tiket",
+            users:"/api/users",
+            kereta:"/api/kereta",
+            stasiun:"/api/stasiun",
+            transaksi:"/api/transaksi",
+            tiket:"/api/tiket",
         }
     });
 });
@@ -474,7 +475,7 @@ app.post("/api/transaksi", (req, res) => {
                     if (err2) {
                         return sendRes(res, 500, "Transaksi berhasil tapi tiket gagal dibuat!", err2.message);
                     }
-                    sendRes(res, 201, "Transaksi dan tiket berhasil dibuat!", { id_transaksi, id_user, id_kereta, no_kursi, tanggal_keberangkatan
+                    sendRes(res, 201, "Transaksi dan tiket berhasil dibuat!", { id_transaksi, total_harga, status, id_user, id_kereta, no_kursi, tanggal_keberangkatan
                     });
                 }
             );
@@ -484,6 +485,13 @@ app.post("/api/transaksi", (req, res) => {
 
 //UPDATE (status)
 app.put("/api/transaksi/:id", (req, res) => {
+    let keysvalid = ["status"];
+    let keysbody = Object.keys(req.body);
+    let valid = keysbody.every(key => keysvalid.includes(key));
+    if (!valid) {
+        return sendRes(res, 400, "Hanya boleh update status!");
+    }
+    
     let { status } = req.body;
     let id_transaksi = req.params.id;
     if (!status) {
