@@ -179,7 +179,7 @@ app.get("/api/kereta", (req, res) => {
     let params = [];
     if (q) {
         sql += " WHERE k.nama_kereta LIKE ? OR s.kota LIKE ?";
-        params.push("%" + q + "%");
+        params.push("%" + q + "%", "%" + q + "%");
     }
     if (page && limit) {
         let offset = (page - 1) * limit;
@@ -297,7 +297,7 @@ app.get("/api/stasiun", (req, res) => {
 
     if (q) {
         sql += " WHERE nama_stasiun LIKE ? OR kota LIKE ?";
-        params.push("%" + q + "%");
+        params.push("%" + q + "%", "%" + q + "%");
     }
     if (page && limit) {
         let offset = (page - 1) * limit;
