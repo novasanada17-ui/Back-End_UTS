@@ -629,6 +629,7 @@ app.use((req, res) => {
     sendRes(res, 404, `Endpoint ${req.originalUrl} tidak ditemukan.`);
 });
 
+//Validasi Global
 app.use((err, req, res, next) => {
     console.error("Internal Server Error:", err.stack || err.message);
     sendRes(res, 500, "Terjadi kesalahan pada server", err.message);
