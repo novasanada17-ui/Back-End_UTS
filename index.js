@@ -178,7 +178,7 @@ app.get("/api/kereta", (req, res) => {
         JOIN stasiun s ON k.id_stasiun = s.id_stasiun`;
     let params = [];
     if (q) {
-        sql += " WHERE k.nama_kereta LIKE ?";
+        sql += " WHERE k.nama_kereta LIKE ? OR s.kota LIKE ?";
         params.push("%" + q + "%");
     }
     if (page && limit) {
@@ -296,7 +296,7 @@ app.get("/api/stasiun", (req, res) => {
     let params = [];
 
     if (q) {
-        sql += " WHERE nama_stasiun LIKE ?";
+        sql += " WHERE nama_stasiun LIKE ? OR kota LIKE ?";
         params.push("%" + q + "%");
     }
     if (page && limit) {
